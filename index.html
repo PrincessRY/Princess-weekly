@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Baby Adventure Log</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .week-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .week-list button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .week-list button:hover {
+            background-color: #45a049;
+        }
+        .week-activities {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .week-activities h2 {
+            color: #555;
+        }
+        .week-activities ul {
+            list-style: none;
+            padding: 0;
+        }
+        .week-activities ul li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e7f3ff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weekly Baby Adventure Log</h1>
+    <div class="week-list" id="weekList"></div>
+    <div id="activities" class="week-activities"></div>
+
+    <script>
+        const activities = [
+            {
+                week: 'July Week 1 (Starting July 1, 2024)',
+                items: [
+                    '🐣 Tummy Time Adventure: Place your baby on their tummy with toys just out of reach.',
+                    '🌳 Outdoor Walk: Take a stroll in the park with your baby in a stroller.',
+                    '👶 Mirror Play: Let your baby explore their reflection in a baby-safe mirror.',
+                    '✨ Sensory Bag: Create a sensory bag with various textures for your baby to touch.',
+                    '🎵 Music Time: Play different types of music and dance with your baby.'
+                ]
+            },
+            {
+                week: 'July Week 2 (Starting July 8, 2024)',
+                items: [
+                    '📚 Story Time: Read colorful picture books to your baby.',
+                    '💧 Water Play: Let your baby splash in a shallow tub of water.',
+                    '🧸 Soft Toy Exploration: Introduce new soft toys with different textures.',
+                    '🎶 Sing Along: Sing nursery rhymes and songs to your baby.',
+                    '🙈 Peek-a-Boo: Play peek-a-boo with a cloth or your hands.'
+                ]
+            },
+            {
+                week: 'July Week 3 (Starting July 15, 2024)',
+                items: [
+                    '🌼 Garden Exploration: Sit in the garden and let your baby observe plants and flowers.',
+                    '🫧 Bubble Fun: Blow bubbles and watch your baby’s reaction.',
+                    '🧩 Texture Crawl: Create a crawl path with different textures like blankets and mats.',
+                    '🔆 Interactive Play: Use interactive toys that light up or make sounds.',
+                    '🌸 Gentle Massage: Give your baby a gentle massage with baby lotion.'
+                ]
+            },
+            {
+                week: 'July Week 4 (Starting July 22, 2024)',
+                items: [
+                    '🐦 Nature Sounds: Play recordings of nature sounds like birds or ocean waves.',
+                    '🍼 Sensory Bottles: Make sensory bottles filled with colorful items.',
+                    '🐻 Finger Puppet Show: Put on a little puppet show with finger puppets.',
+                    '⚽ Ball Play: Roll a soft ball back and forth with your baby.',
+                    '📖 Tactile Books: Read touch-and-feel books together.'
+                ]
+            },
+            {
+                week: 'July Week 5 (Starting July 29, 2024)',
+                items: [
+                    '🏖️ Beach Day: Visit a local beach and let your baby feel the sand.',
+                    '🧸 Toy Rotation: Rotate your baby’s toys to keep things interesting.',
+                    '💃 Dance Party: Have a mini dance party with upbeat music.',
+                    '🍎 Fruit Tasting: Introduce new fruits and let your baby taste small amounts.',
+                    '🌲 Nature Walk: Go for a nature walk and point out different animals and plants.'
+                ]
+            },
+            {
+                week: 'August Week 1 (Starting August 5, 2024)',
+                items: [
+                    '🧺 Family Picnic: Have a picnic in the park with family.',
+                    '🎨 Footprint Art: Make footprint art with non-toxic paint.',
+                    '🛁 Bath Time Fun: Add new bath toys to make bath time more exciting.',
+                    '🔷 Soft Blocks: Build and knock down towers with soft blocks.',
+                    '🌙 Calm Reading: Read calming stories before bedtime.'
+                ]
+            },
+            {
+                week: 'August Week 2 (Starting August 12, 2024)',
+                items: [
+                    '🗃️ Exploration Basket: Create a basket with safe household items for your baby to explore.',
+                    '⚽ Ball Pit: Create a mini ball pit with soft balls.',
+                    '🐸 Hand Puppets: Play with hand puppets and make up stories.',
+                    '📸 Photo Album: Show your baby family photos and tell them who everyone is.',
+                    '🎵 Nap Time Music: Play soothing music during nap time.'
+                ]
+            },
+            {
+                week: 'August Week 3 (Starting August 19, 2024)',
+                items: [
+                    '🌞 Outdoor Blanket Time: Lay a blanket outside and let your baby play.',
+                    '🖌️ Finger Painting: Try finger painting with edible, non-toxic paints.',
+                    '🚗 Toy Parade: Line up toys and have a parade with your baby.',
+                    '👣 Texture Walk: Walk on different surfaces like grass, carpet, and tiles.',
+                    '🌜 Sleepy Time Routine: Establish a calming bedtime routine.'
+                ]
+            },
+            {
+                week: 'August Week 4 (Starting August 26, 2024)',
+                items: [
+                    '📚 Library Visit: Visit the local library and explore the children’s section.',
+                    '🏠 Puppet Theater: Create a simple puppet theater with a cardboard box.',
+                    '🏖️ Sandbox Play: If you have a sandbox, let your baby play with sand toys.',
+                    '🎐 Wind Chimes: Hang wind chimes and let your baby listen to the sounds.',
+                    '🐻 Soft Toy Story: Make up stories with your baby’s favorite soft toys.'
+                ]
+            },
+            {
+                week: 'September Week 1 (Starting September 2, 2024)',
+                items: [
+                    '🏞️ Park Playdate: Arrange a playdate at the park with other parents and babies.',
+                    '🥁 Music Instruments: Introduce simple musical instruments like a tambourine or maracas.',
+                    '🐮 Animal Sounds: Teach your baby different animal sounds.',
+                    '👀 Hide and Seek: Play a gentle game of hide and seek.',
+                    '🌅 Sunset Watching: Watch the sunset together from a cozy spot.'
+                ]
+            },
+            {
+                week: 'September Week 2 (Starting September 9, 2024)',
+                items: [
+                    '🌱 Garden Watering: Let your baby help water plants in the garden.',
+                    '🕯️ Shadow Play: Use a flashlight to create shadows on the wall.',
+                    '🥕 New Foods: Introduce new solid foods and observe your baby’s reactions.',
+                    '📖 Quiet Reading: Spend quiet time reading new books.',
+                    '👏 Hand Clapping Games: Play simple hand clapping games.'
+                ]
+            },
+            {
+                week: 'September Week 3 (Starting September 16, 2024)',
+                items: [
+                    '🦜 Bird Watching: Sit outside and watch birds together.',
+                    '🧼 Toy Bath: Give your baby’s toys a bath in a small tub.',
+                    '🎬 Family Movie: Watch a family-friendly movie together.',
+                    '🍁 Nature Collection: Collect leaves, rocks, and sticks on a nature walk.',
+                    '🧸 Soft Toy Pile: Create a pile of soft toys for your baby to explore.'
+                ]
+            },
+            {
+                week: 'September Week 4 (Starting September 23, 2024)',
+                items: [
+                    '🎃 Pumpkin Patch: Visit a pumpkin patch and let your baby explore.',
+                    '🍂 Leaf Pile: Play in a pile of leaves.',
+                    '🧙 Halloween Costumes: Try on Halloween costumes for fun.',
+                    '📚 Spooky Stories: Read gentle Halloween-themed books.',
+                    '🍁 Fall Walk: Go for a walk and observe the changing colors of the leaves.'
+                ]
+            }
+        ];
+
+        function displayWeekActivities(weekIndex) {
+            const week = activities[weekIndex];
+            const activitiesDiv = document.getElementById('activities');
+            activitiesDiv.innerHTML = `
+                <h2>${week.week}</h2>
+                <ul>
+                    ${week.items.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        function populateWeekList() {
+            const weekListDiv = document.getElementById('weekList');
+            activities.forEach((week, index) => {
+                const button = document.createElement('button');
+                button.textContent = week.week;
+                button.onclick = () => displayWeekActivities(index);
+                weekListDiv.appendChild(button);
+            });
+        }
+
+        populateWeekList();
+    </script>
+</body>
+</html>
