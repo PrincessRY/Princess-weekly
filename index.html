@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Princess Adventure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .week-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .week-list button {
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .week-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            width: 80%;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .card h2 {
+            color: #555;
+            font-weight: bold;
+        }
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .card ul li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e7f3ff;
+            border-radius: 5px;
+        }
+        .task-title, .milestone-title, .tip-title {
+            font-weight: bold;
+        }
+        .baby-age span {
+            color: #ff69b4;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weekly Princess Adventure</h1>
+    <div class="week-list" id="weekList"></div>
+    <div id="weekContent" class="week-content"></div>
+
+    <script>
+        const babyBirthday = new Date('2024-01-09');
+
+        function getBabyAge(weekStartDate) {
+            const now = new Date(weekStartDate);
+            const diffTime = Math.abs(now - babyBirthday);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const diffWeeks = Math.floor(diffDays / 7);
+            const diffMonths = Math.floor(diffDays / 30);
+
+            return {days: diffDays, weeks: diffWeeks, months: diffMonths};
+        }
+
+        const activities = [
+            {
+                week: 'July Week 2 (Starting July 8, 2024)',
+                items: [
+                    { task: '📚 Story Time', description: 'Read colorful picture books to your baby.' },
+                    { task: '💧 Water Play', description: 'Let your baby splash in a shallow tub of water.' },
+                    { task: '🧸 Soft Toy Exploration', description: 'Introduce new soft toys with different textures.' },
+                    { task: '🎶 Sing Along', description: 'Sing nursery rhymes and songs to your baby.' },
+                    { task: '🙈 Peek-a-Boo', description: 'Play peek-a-boo with a cloth or your hands.' }
+                ],
+                milestones: [
+                    { milestone: '🎶 Responds to Sounds', description: 'Baby starts responding to sounds and music.' },
+                    { milestone: '👀 Follows Objects', description: 'Baby follows moving objects with their eyes.' },
+                    { milestone: '🤲 Reaches for Objects', description: 'Baby starts reaching for and grabbing objects.' },
+                    { milestone: '🗣️ Makes Sounds', description: 'Baby begins to make more varied sounds and coos.' }
+                ],
+                tips: [
+                    { tip: '🚼 Babyproofing', description: 'Start babyproofing your home to ensure safety.' },
+                    { tip: '🍽️ Feeding', description: 'Introduce a variety of foods to your baby’s diet.' },
+                    { tip: '🛁 Bath Time Safety', description: 'Always supervise your baby during bath time.' },
+                    { tip: '🛌 Sleep Routine', description: 'Establish a consistent sleep routine for your baby.' },
+                    { tip: '🌡️ Room Temperature', description: 'Keep the room temperature comfortable for your baby.' }
+                ]
+            },
+            {
+                week: 'July Week 3 (Starting July 15, 2024)',
+                items: [
+                    { task: '🌼 Garden Exploration', description: 'Sit in the garden and let your baby observe plants and flowers.' },
+                    { task: '🫧 Bubble Fun', description: 'Blow bubbles and watch your baby’s reaction.' },
+                    { task: '🧩 Texture Crawl', description: 'Create a crawl path with different textures like blankets and mats.' },
+                    { task: '🔆 Interactive Play', description: 'Use interactive toys that light up or make sounds.' },
+                    { task: '🌸 Gentle Massage', description: 'Give your baby a gentle massage with baby lotion.' }
+                ],
+                milestones: [
+                    { milestone: '👂 Turns to Sound', description: 'Baby turns their head towards sounds.' },
+                    { milestone: '👐 Grabs and Shakes Toys', description: 'Baby grabs and shakes toys.' },
+                    { milestone: '🙃 Rolls Over', description: 'Baby starts to roll over from tummy to back.' },
+                    { milestone: '👋 Babbles', description: 'Baby begins to babble and make more sounds.' }
+                ],
+                tips: [
+                    { tip: '🚼 Safe Play Area', description: 'Ensure a safe play area for your baby to explore.' },
+                    { tip: '🍼 Feeding Schedule', description: 'Maintain a consistent feeding schedule.' },
+                    { tip: '🛌 Sleep Environment', description: 'Create a calm sleep environment for your baby.' },
+                    { tip: '🔊 Talking to Baby', description: 'Talk to your baby frequently to encourage language development.' },
+                    { tip: '🌡️ Room Temperature', description: 'Keep the room temperature comfortable for your baby.' }
+                ]
+            },
+            {
+                week: 'July Week 4 (Starting July 22, 2024)',
+                items: [
+                    { task: '🐦 Nature Sounds', description: 'Play recordings of nature sounds like birds or ocean waves.' },
+                    { task: '🍼 Sensory Bottles', description: 'Make sensory bottles filled with colorful items.' },
+                    { task: '🐻 Finger Puppet Show', description: 'Put on a little puppet show with finger puppets.' },
+                    { task: '⚽ Ball Play', description: 'Roll a soft ball back and forth with your baby.' },
+                    { task: '📖 Tactile Books', description: 'Read touch-and-feel books together.' }
+                ],
+                milestones: [
+                    { milestone: '🗣️ Responds to Name', description: 'Baby starts to respond to their name.' },
+                    { milestone: '🧠 Recognizes Faces', description: 'Baby recognizes familiar faces and may show preference.' },
+                    { milestone: '👀 Tracks Moving Objects', description: 'Baby tracks moving objects with their eyes.' },
+                    { milestone: '👐 Transfers Objects', description: 'Baby transfers objects from one hand to the other.' }
+                ],
+                tips: [
+                    { tip: '🤲 Holding Baby', description: 'Hold your baby securely and support their head and neck.' },
+                    { tip: '🚼 Babyproofing', description: 'Continue babyproofing your home as your baby becomes more mobile.' },
+                    { tip: '🛌 Sleep Routine', description: 'Keep a consistent sleep routine.' },
+                    { tip: '🍼 Feeding Variety', description: 'Introduce new textures and tastes in solid foods.' },
+                    { tip: '🔊 Communication', description: 'Encourage communication by responding to your baby’s sounds.' }
+                ]
+            },
+            {
+                week: 'July Week 5 (Starting July 29, 2024)',
+                items: [
+                    { task: '🏖️ Beach Day', description: 'Visit a local beach and let your baby feel the sand.' },
+                    { task: '🧸 Toy Rotation', description: 'Rotate your baby’s toys to keep things interesting.' },
+                    { task: '💃 Dance Party', description: 'Have a mini dance party with upbeat music.' },
+                    { task: '🍎 Fruit Tasting', description: 'Introduce new fruits and let your baby taste small amounts.' },
+                    { task: '🌲 Nature Walk', description: 'Go for a nature walk and point out different animals and plants.' }
+                ],
+                milestones: [
+                    { milestone: '🗣️ Babbling', description: 'Baby babbles more and tries to imitate sounds.' },
+                    { milestone: '👐 Grasps Objects', description: 'Baby grasps objects more firmly.' },
+                    { milestone: '🧠 Curious', description: 'Baby shows curiosity about objects and explores them with hands and mouth.' },
+                    { milestone: '🤲 Reaches Out', description: 'Baby reaches out for objects and tries to grab them.' }
+                ],
+                tips: [
+                    { tip: '🛌 Bedtime Routine', description: 'Establish a soothing bedtime routine.' },
+                    { tip: '🍼 Hydration', description: 'Ensure your baby stays hydrated, especially in warm weather.' },
+                    { tip: '🌡️ Temperature', description: 'Keep the room temperature comfortable for your baby.' },
+                    { tip: '🚼 Supervision', description: 'Always supervise your baby during playtime and mealtime.' },
+                    { tip: '👶 Interaction', description: 'Spend quality time interacting with your baby to encourage bonding.' }
+                ]
+            }
+        ];
+
+        const colors = ["rgb(246,166,178)", "rgb(144,210,216)", "rgb(255,225,146)", "rgb(166,214,199)", "rgb(245,180,127)"];
+
+        function getRandomColor(excludeColor) {
+            let newColor;
+            do {
+                newColor = colors[Math.floor(Math.random() * colors.length)];
+            } while (newColor === excludeColor);
+            return newColor;
+        }
+
+        function displayWeekContent(weekIndex, button) {
+            const week = activities[weekIndex];
+            const weekStartDate = new Date(week.week.match(/\((Starting .+)\)/)[1]);
+            const babyAge = getBabyAge(weekStartDate);
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'week-content';
+            contentDiv.innerHTML = `
+                <h2>${week.week}</h2>
+                <p class="baby-age">Baby is <span>${babyAge.days}</span> days, <span>${babyAge.weeks}</span> weeks, <span>${babyAge.months}</span> months old</p>
+                <div class="card">
+                    <h2>Tasks</h2>
+                    <ul>
+                        ${week.items.map((item, index) => `<li><span class="task-title">${item.task}</span>: ${item.description}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2>Milestones</h2>
+                    <ul>
+                        ${week.milestones.map((item, index) => `<li><span class="milestone-title">${item.milestone}</span>: ${item.description}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2>Tips & Tricks</h2>
+                    <ul>
+                        ${week.tips.map((item, index) => `<li><span class="tip-title">${item.tip}</span>: ${item.description}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            const existingContent = document.querySelector('.week-content');
+            if (existingContent) {
+                existingContent.remove();
+            }
+
+            button.after(contentDiv);
+        }
+
+        function populateWeekList() {
+            const weekListDiv = document.getElementById('weekList');
+            let lastColor = null;
+            activities.forEach((week, index) => {
+                const button = document.createElement('button');
+                button.textContent = week.week;
+                const color = getRandomColor(lastColor);
+                button.style.backgroundColor = color;
+                lastColor = color;
+                button.onclick = () => displayWeekContent(index, button);
+                weekListDiv.appendChild(button);
+            });
+        }
+
+        populateWeekList();
+    </script>
+</body>
+</html>
